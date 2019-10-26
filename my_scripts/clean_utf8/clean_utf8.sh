@@ -58,8 +58,8 @@ do
 done
 ###Setup
 #Comparisson arrays
-make_arr "$script_folder/src/lst_clean_sort.txt"; clean+=( "${clean[@]}" "${MAKE_ARR_RET[@]}" )
-make_arr <"$script_folder/src/lst_dirty_sort.txt"; dirty+=( "${dirty[@]}" "${MAKE_ARR_RET[@]}" )
+make_arr "$script_folder/src/lst_clean_sort.txt"; clean+=( "${MAKE_ARR_RET[@]}" )
+make_arr "$script_folder/src/lst_dirty_sort.txt"; dirty+=( "${MAKE_ARR_RET[@]}" )
 max_comp=${#clean[@]}
 #echo "Comparisson array: ${#clean[@]} clean values and ${#dirty[@]} dirty ones."
 echo "Les mentions {rep} seront à remplacer manuellements."

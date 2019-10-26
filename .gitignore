@@ -2,9 +2,5 @@ to_conv/*
 been_conv/*
 my_logs/*
 
-!to_conv/
-!to_conv/.gitkeep
-!been_conv/
-!been_conv/.gitkeep
 !my_logs/
 !my_logs/.gitkeep

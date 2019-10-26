@@ -6,18 +6,19 @@
 function ProgressBar {
 	_pg_message=""
 	# Process data
-	_progress=(${1}*100/${2}*100)/100
-	_done=(${_progress}*4)/10
-	_left=40-$_done
+	_progress=$(((${1}*100/${2}*100)/100))
+	_done=$(((${_progress}*4)/10))
+	_left=$((40-$_done))
 	# Build progressbar string lengths
 	_done=$(printf "%${_done}s")
 	_left=$(printf "%${_left}s")
 	# 1.2 Build progressbar strings and print the ProgressBar line
-	_pg_message="\rProgress ($3) : [${_done// /#}${_left// /-}] ${_progress}%%"
+	_pg_message="Progress ($3) : [${_done// /#}${_left// /-}] ${_progress}%%"
+	
+	printf "\r$_pg_message"
 	
 	if [ $_progress = 100 ]
 	then
-		_pg_message="$_pg_message Done with $3."
+		printf "  Done with $3.\n"
 	fi
-	printf "$_pg_message"
 }
