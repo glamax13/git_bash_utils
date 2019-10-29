@@ -1,4 +1,4 @@
-function parse_fold {
+function parse_files {
 	search_from=$1
 	search_file=$2
 	search_needle=$3
@@ -7,6 +7,6 @@ function parse_fold {
 	content=$(cat "$search_from/$search_file")
 	if [[ "${content,,}" =~ "${search_needle,,}" ]]
 	then
-		echo "$search_file" >> "$search_logs/PARSED_FOLD"
+		echo "$search_file" >> "$search_logs/PARSED_FILE"
 	fi
 }

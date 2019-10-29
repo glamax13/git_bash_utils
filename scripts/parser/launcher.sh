@@ -5,16 +5,17 @@ source "$(realpath -s $script_folder/../../global_conf.sh)"
 source "$progress_bar"
 source "$find_foi"
 source "$select_ext"
-source "$script_folder/deps/parser_folder.sh"
-source "$script_folder/deps/parser_file.sh"
+source "$script_folder/deps/parser_files.sh"
+source "$script_folder/deps/parser_lines.sh"
 source "$arr_maker"
 
+help="script_folder/help.txt"
 advanced=""
 ext_file=""
 needle=""
-from=""
+from="."
 thread=1
-logs=""
+logs="."
 lst_ext=()
 lst_files=()
 
@@ -30,7 +31,7 @@ do
         f) from=${OPTARG};;
         t) thread=${OPTARG};;
         l) logs=${OPTARG};;
-        *) echo "Option not handled!";;
+        *) echo "Option not handled!"; cat $help;;
     esac
 done
 
@@ -55,35 +56,36 @@ then
     
     i=0
     for file in ${lst_files[@]}
-    do	
+    do
 		if [ "$(($i%$thread))" = "0" ]
 		then
 			wait
-            ProgressBar "$i" "${#lst_files[@]}"
+            ProgressBar "$i" "${#lst_files[@]}" "$file"
 		fi
-        parse_fold "$from" "$file" "$needle" "$logs" &
+        parse_files "$from" "$file" "$needle" "$logs" #&
 		i=$(($i+1))
 	done
-    ProgressBar "$i" "${#lst_files[@]}"
-    make_arr "$logs/PARSED_FOLD"
-    rm "$logs/PARSED_FOLD"
-    PARSED_FOLD=( "${MAKE_ARR_RET[@]}" )
+    ProgressBar "$i" "${#lst_files[@]}" "$file"
+    echo "i said stop"
+    make_arr "$logs/PARSED_FILE"
+    rm "$logs/PARSED_FILE"
+    PARSED_FILE=( "${MAKE_ARR_RET[@]}" )
     wait
 
     
-    for parsed in $PARSED_FOLD
+    for parsed in $PARSED_FILE
     do
         echo "$parsed" >> "$logs/parser.log"
         echo "$parsed"
         if [ $advanced ]
         then
-            parse_file "$from" "$parsed" "$needle" "$logs"
+            parse_lines "$from" "$parsed" "$needle" "$logs"
             make_arr "$logs/PARSED_LINE"
+            #rm "$logs/PARSED_LINE"
             PARSED_LINE=( "${MAKE_ARR_RET[@]}" )
             for line in $PARSED_LINE
             do
                 echo "$line" >> "$logs/parser.log"
-                echo "$line"
             done
         fi
     done
