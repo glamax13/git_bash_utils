@@ -1,37 +1,10 @@
-As ansii
+Class des adipiscing Ã¨iam quÃ®s bibendum dapibus quisquÃ© libero imperdiet famÃ¨s facÃ®lisis j'ultrices elit quisquÃ©, des aliquÃ m gravida placÃ©rat vehiculÃ¢ sodalÃ©s vitae senectus nullÃ¤ egestas portitorsÃ© pretium feugiat consequat class, aliquÃ©t feugiat "sÃ©lecrum" velit aenean nÃ¨tus odio diam Ã¯d nequÃ© ut vel ornare mi, Ã  netus aÃ©nean ut. Primies donec vitae nam metus cursus tempÃ¨s dÃ¯am Ã§urcus maÃ©cÃ¨nas at Ã©lÃ©mentum, aptent !
+mauris c'est-a-dire fusce himenaÃ©os pÃ©suÃ©rÃ© vulputate tincidunt himenaeos litora, posuere vehicula nÃ»llam m'eu d'himenaeos des dictum 48 953â‚¬ egÃ©stat l'"sÃ©lecrum".
+Sit augue donÃ©c duis pretium torquent ultrÃ»cÃ©as iaculisÃ© venenatis cÅ“eur posuere, eros ullamcorper interdÃ¹m lorem.
 
-###Clear text### 
-Class des adipiscing èiam quîs bibendum dapibus quisqué libero imperdiet famès facîlisis j'ultrices elit quisqué, des aliquàm gravida placérat vehiculâ sodalés vitae senectus nullä egestas portitorsé pretium feugiat consequat class, aliquét feugiat "sélecrum" velit aenean nètus odio diam ïd nequé ut vel ornare mi, à netus aénean ut. Primies donec vitae nam metus cursus tempès dïam çurcus maécènas at élémentum, aptent !
-mauris c'est-a-dire fusce himenaéos pésuéré vulputate tincidunt himenaeos litora, posuere vehicula nûllam m'eu d'himenaeos des dictum 48 953? egéstat l'"sélecrum".
-Sit augue donéc duis pretium torquent ultrûcéas iaculisé venenatis c?eur posuere, eros ullamcorper interdùm lorem.
+Euismod molestiÃ© elementum suspendisse ad congue m'tÃ©llus quis habitassÃ© dapibus proin c'est-a-dire et nostra massÃ¨, suspendissÃ© anonyma lobortÃ¯s bibÃ©ndum grÃ¢vida pretium mÃ©tus. Quam vivamÃ¹s pÃ©llÃ©ntÃ©sque placerat tellus nullÃ¤ m'ut pÃ©suÃ©rÃ© potenti etiam quÃ®s augue Ã¯n platÃ©a 4 142â‚¬ portÃ©, faucibus des urna torÃ©torÃ© j'fermentum morbi j'mattis Ã©tiam massa Ã¹rci phasÃ©llÅ“s vitaÃ© congÃ©s rÃ»trum gravida praesent, praesent duÃ¨is pharetra nisl platea lorem donÃ©c libÃ©ro Ã¯psum sÃ©t sÃ¨nÃ¨ctus congue lorem.
+Quis dicÃ»m egestas velit eros metus pÃ©rÃ¨s nisÃ¯ ad dolor volutpat varius venenatis himenaÃ©os fancibÃ¼s Ã§urcus ultricitÃ©s intÃ¨gÃ¨r sodales "sÃ©lecrum" potenti euismod Ã , pÃ©suÃ©rÃ© pÃ©suÃ©rÃ© porta lobortis tempor libero anonyma Ã§urcus vestibulum.
+Etiam rutrum convallis augueÃ© Ã©gÃ©t metus hac convallis phasellus !
+lacus 32 965â‚¬ Ã¨st sÃ©t placerat sÃ©t quÃ©m dapidÃ»s du lacÃ®na mi dictumst FrÃ®nglilia phasÃ©llÅ“s, famÃ¨s vitaÃ© egestas pellentesque Ã¨iam lorÃ©m nÃ®bh condimentÃ»m fames vivamÃ¹s habitasse.
 
-Euismod molestié elementum suspendisse ad congue m'téllus quis habitassé dapibus proin c'est-a-dire et nostra massè, suspendissé anonyma lobortïs bibéndum grâvida pretium métus. Quam vivamùs pélléntésque placerat tellus nullä m'ut pésuéré potenti etiam quîs augue ïn platéa 4 142? porté, faucibus des urna torétoré j'fermentum morbi j'mattis étiam massa ùrci phaséll?s vitaé congés rûtrum gravida praesent, praesent duèis pharetra nisl platea lorem donéc libéro ïpsum sét sènèctus congue lorem.
-Quis dicûm egestas velit eros metus pérès nisï ad dolor volutpat varius venenatis himenaéos fancibüs çurcus ultricités intègèr sodales "sélecrum" potenti euismod à, pésuéré pésuéré porta lobortis tempor libero anonyma çurcus vestibulum.
-Etiam rutrum convallis augueé égét metus hac convallis phasellus !
-lacus 32 965? èst sét placerat sét quém dapidûs du lacîna mi dictumst Frînglilia phaséll?s, famès vitaé egestas pellentesque èiam lorém nîbh condimentûm fames vivamùs habitasse.
-
-Ullamcorper lacinia çunc sagittis ut ût néc dictumst conséquat pélléntésque aptent venenatis purus, ut fuegiuia etiam eros félis feugiat a morbié fames sempér dïam taciti, nètus nûllam rutrum laoreet etiam taciti "sélecrum" feugiat scelerisque interdùm. Adipiscing ut hendrerit sit lectus quisqué lobortis interdùm d'turpis, nam a torquenté lorem aliquam commodo interdùm urna, lilitoxic feugiat porté elit magnès scelerisque séd donéc viverra.
-
-###Same text with html entities###
-Class des adipiscing èiam quîs bibendum dapibus quisqué libero imperdiet famès facîlisis j&apos;ultrices elit quisqué, des aliquàm gravida placérat vehiculâ sodalés vitae senectus nullä egestas portitorsé pretium feugiat consequat class, aliquét feugiat &quot;sélecrum&quot; velit aenean nètus odio diam ïd nequé ut vel ornare mi, à netus aénean ut. Primies donec vitae nam metus cursus tempès dïam çurcus maécènas at élémentum, aptent !
-mauris c&apos;est-a-dire fusce himenaéos pésuéré vulputate tincidunt himenaeos litora, posuere vehicula nûllam m&apos;eu d&apos;himenaeos des dictum 48 953? egéstat l&apos;&quot;sélecrum&quot;.
-Sit augue donéc duis pretium torquent ultrûcéas iaculisé venenatis c?eur posuere, eros ullamcorper interdùm lorem.
-
-Euismod molestié elementum suspendisse ad congue m&apos;téllus quis habitassé dapibus proin c&apos;est-a-dire et nostra massè, suspendissé anonyma lobortïs bibéndum grâvida pretium métus. Quam vivamùs pélléntésque placerat tellus nullä m&apos;ut pésuéré potenti etiam quîs augue ïn platéa 4 142? porté, faucibus des urna torétoré j&apos;fermentum morbi j&apos;mattis étiam massa ùrci phaséll?s vitaé congés rûtrum gravida praesent, praesent duèis pharetra nisl platea lorem donéc libéro ïpsum sét sènèctus congue lorem.
-Quis dicûm egestas velit eros metus pérès nisï ad dolor volutpat varius venenatis himenaéos fancibüs çurcus ultricités intègèr sodales &quot;sélecrum&quot; potenti euismod à, pésuéré pésuéré porta lobortis tempor libero anonyma çurcus vestibulum.
-Etiam rutrum convallis augueé égét metus hac convallis phasellus !
-lacus 32 965? èst sét placerat sét quém dapidûs du lacîna mi dictumst Frînglilia phaséll?s, famès vitaé egestas pellentesque èiam lorém nîbh condimentûm fames vivamùs habitasse.
-
-Ullamcorper lacinia çunc sagittis ut ût néc dictumst conséquat pélléntésque aptent venenatis purus, ut fuegiuia etiam eros félis feugiat a morbié fames sempér dïam taciti, nètus nûllam rutrum laoreet etiam taciti &quot;sélecrum&quot; feugiat scelerisque interdùm. Adipiscing ut hendrerit sit lectus quisqué lobortis interdùm d&apos;turpis, nam a torquenté lorem aliquam commodo interdùm urna, lilitoxic feugiat porté elit magnès scelerisque séd donéc viverra.
-
-###Same text with html codes###
-Class des adipiscing èiam quîs bibendum dapibus quisqué libero imperdiet famès facîlisis j&#39;ultrices elit quisqué, des aliquàm gravida placérat vehiculâ sodalés vitae senectus nullä egestas portitorsé pretium feugiat consequat class, aliquét feugiat &#34;sélecrum&#34; velit aenean nètus odio diam ïd nequé ut vel ornare mi, à netus aénean ut. Primies donec vitae nam metus cursus tempès dïam çurcus maécènas at élémentum, aptent !
-mauris c&#39;est-a-dire fusce himenaéos pésuéré vulputate tincidunt himenaeos litora, posuere vehicula nûllam m&#39;eu d&#39;himenaeos des dictum 48 953? egéstat l&#39;&#34;sélecrum&#34;.
-Sit augue donéc duis pretium torquent ultrûcéas iaculisé venenatis c?eur posuere, eros ullamcorper interdùm lorem.
-
-Euismod molestié elementum suspendisse ad congue m&#39;téllus quis habitassé dapibus proin c&#39;est-a-dire et nostra massè, suspendissé anonyma lobortïs bibéndum grâvida pretium métus. Quam vivamùs pélléntésque placerat tellus nullä m&#39;ut pésuéré potenti etiam quîs augue ïn platéa 4 142? porté, faucibus des urna torétoré j&#39;fermentum morbi j&#39;mattis étiam massa ùrci phaséll?s vitaé congés rûtrum gravida praesent, praesent duèis pharetra nisl platea lorem donéc libéro ïpsum sét sènèctus congue lorem.
-Quis dicûm egestas velit eros metus pérès nisï ad dolor volutpat varius venenatis himenaéos fancibüs çurcus ultricités intègèr sodales &#34;sélecrum&#34; potenti euismod à, pésuéré pésuéré porta lobortis tempor libero anonyma çurcus vestibulum.
-Etiam rutrum convallis augueé égét metus hac convallis phasellus !
-lacus 32 965? èst sét placerat sét quém dapidûs du lacîna mi dictumst Frînglilia phaséll?s, famès vitaé egestas pellentesque èiam lorém nîbh condimentûm fames vivamùs habitasse.
-
-Ullamcorper lacinia çunc sagittis ut ût néc dictumst conséquat pélléntésque aptent venenatis purus, ut fuegiuia etiam eros félis feugiat a morbié fames sempér dïam taciti, nètus nûllam rutrum laoreet etiam taciti &#34;sélecrum&#34; feugiat scelerisque interdùm. Adipiscing ut hendrerit sit lectus quisqué lobortis interdùm d&#39;turpis, nam a torquenté lorem aliquam commodo interdùm urna, lilitoxic feugiat porté elit magnès scelerisque séd donéc viverra.
+Ullamcorper lacinia Ã§unc sagittis ut Ã»t nÃ©c dictumst consÃ©quat pÃ©llÃ©ntÃ©sque aptent venenatis purus, ut fuegiuia etiam eros fÃ©lis feugiat a morbiÃ© fames sempÃ©r dÃ¯am taciti, nÃ¨tus nÃ»llam rutrum laoreet etiam taciti "sÃ©lecrum" feugiat scelerisque interdÃ¹m. Adipiscing ut hendrerit sit lectus quisquÃ© lobortis interdÃ¹m d'turpis, nam a torquentÃ© lorem aliquam commodo interdÃ¹m urna, lilitoxic feugiat portÃ© elit magnÃ¨s scelerisque sÃ©d donÃ©c viverra.

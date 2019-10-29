@@ -1,22 +1,28 @@
 function find_foi {
+	_ff_ori="$(pwd)"
+	_ff_where="."
+	_ff_ext="*"
+	_ff_type="f"
+	ARR_FOI=()
+	
 	OPTIND=1
 	while getopts t:w:e: option
 	do
 		case ${option}
 		in
-			e) find_ext=${OPTARG};;
-			w) find_where=${OPTARG};;
-			t) find_type=${OPTARG};;
+			e) _ff_ext=${OPTARG};;
+			w) _ff_where=${OPTARG};;
+			t) _ff_type=${OPTARG};;
 			*) echo "option not handled"
 		esac
 	done
-	folder_ori="$(pwd)"
-	find_ext="*$find_ext"
-	ARR_FOI=()
-	cd "$find_where"
 	
+	_ff_ext="*$_ff_ext"
+
+
+	cd "$_ff_where"
 	find \. \
-		-name "${find_ext}" \
+		-name "${_ff_ext}" \
 		\! \( \
 			-path '*/.git/*' \
 			-o -path '*/.idea/*' \
@@ -27,8 +33,8 @@ function find_foi {
 			-o -name '.gitignore' \
 			-o -name '.gitkeep' \
 			-o -name 'FILE_FOI' \
-			-o -name '.' \) \
-		-type "${find_type}" \
+			-o -name '\.' \) \
+		-type "${_ff_type}" \
 				-print0 >FILE_FOI
 
 	while IFS=  read -r -d $'\0'; do
@@ -36,5 +42,5 @@ function find_foi {
 	done <FILE_FOI
 	rm -f FILE_FOI
 
-	cd "$folder_ori"
+	cd "$_ff_ori"
 }
