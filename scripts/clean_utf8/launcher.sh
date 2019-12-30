@@ -4,44 +4,15 @@ ext_file=""
 from=""
 to=""
 max_comp=0
+logs="/dev/null"
 
 source "$(realpath -s $script_folder/../../global_conf.sh)"
+source "$(realpath -s $script_folder/worker.sh)"
 source "$progress_bar"
 source "$find_foi"
 source "$arr_maker"
 
 clean=(); dirty=();
-
-function process {
-    i=0
-    ori=$1
-    swap=$1
-
-    while [[ $i -lt $max_comp ]]
-    do
-        selector="${dirty[$i]}"
-        replacer="${clean[$i]}"
-        swap="${swap//$selector/$replacer}"
-        i=$(($i+1))
-    done
-    selector="{a_tilda_maj}"
-    replacer="Ã"
-    swap="${swap//$selector/$replacer}"
-    if [ "$ori" != "$swap" ]
-    then
-        echo "$nb_line          $file" >> "$logs/double_utf8_changes.log"
-        echo "$ori" >> "$logs/double_utf8_changes.log"
-        echo "$swap" >> "$logs/double_utf8_changes.log"
-        if [[ "$swap" =~ "{rep}" ]]
-        then
-            echo "$nb_line          $file" >> "$logs/double_utf8_to_change.log"
-            echo "$ori" >> "$logs/double_utf8_to_change.log"
-            echo "$swap" >> "$logs/double_utf8_to_change.log"
-        fi
-    fi
-    printf %s\\n "$swap" >> "$to/$file"
-    #echo $swap
-}
 
 #Parameters
 OPTIND=1
@@ -61,7 +32,8 @@ done
 make_arr "$script_folder/src/lst_clean_sort.txt"; clean+=( "${MAKE_ARR_RET[@]}" )
 make_arr "$script_folder/src/lst_dirty_sort.txt"; dirty+=( "${MAKE_ARR_RET[@]}" )
 max_comp=${#clean[@]}
-#echo "Comparisson array: ${#clean[@]} clean values and ${#dirty[@]} dirty ones."
+arr_task=()
+arr_res=()
 echo "Les mentions {rep} seront à remplacer manuellements."
 
 if [ $ext_file ]
@@ -73,9 +45,35 @@ then
         nb_line=0
         while IFS= read -r line || [ -n "$line" ]
         do
-            process "$line"
+            exec {fd}< <(res=$(worker $line); echo $res)
+            arr_task+="$!:$fd:$nb_line "
             nb_line=$(($nb_line+1))
         done < "$from/$file"
+        
+        while [[ ${#arr_task} -gt 0 ]]
+        do
+            for task in $arr_task
+            do
+                pid=${task%:*}
+                
+                if ! kill -0 $pid 2>/dev/null
+                then
+                    data=${task#*:}
+                    fd=${data%:*}
+                    num=${data#*:}
+                    arr_res[$num]="$(cat <&$fd)" # Retrieving the task's output
+                    arr_task=${arr_task/$task /} # Removing the task from the list
+                fi
+            done
+        done
+
+        j=0
+        nb_res=${#arr_res[@]}
+        while [[ $j -lt $nb_res ]]
+        do
+            printf %s\\n ${arr_res[$j]} >> "$to/$file"
+            j=$(($j+1))
+        done
     done
 else
     echo "No ext provided"

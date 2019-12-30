@@ -35,16 +35,19 @@ done
 #####Function's delarations
 ###Full steps to convert everything to utf8
 function full_clean {
-    echo "=> Clean utf8..."
+    echo "=> Clean utf8 (first run)..."
     change "$clean_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
     echo "=> Conv utf8..."
     change "$conv_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
-    echo "=> Clean utf8..."
+    echo "=> Clean utf8 (second run)..."
     change "$clean_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
-    echo "=> Conv html..."
+    echo "=> Conv html (first run)..."
+    change "$conv_html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+    
+    echo "=> Conv html (second run)..."
     change "$conv_html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
     make_build "$path_to_conv" "$path_been_conv"

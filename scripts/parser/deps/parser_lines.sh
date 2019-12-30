@@ -11,7 +11,6 @@ function parse_lines {
         #echo "$search_needle $search_line"
         if [[ "${search_line,,}" =~ "${search_needle,,}" ]]
         then
-            echo $search_line
             echo "$search_num: $search_line" >> "$search_logs/PARSED_LINE" 
         fi
         search_num=$(($search_num+1))
