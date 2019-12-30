@@ -1,4 +1,5 @@
 #!/bin/bash
+
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 ext_file=""
 from=""
@@ -45,27 +46,12 @@ then
         nb_line=0
         while IFS= read -r line || [ -n "$line" ]
         do
-            exec {fd}< <(res=$(worker $line); echo $res)
-            arr_task+="$!:$fd:$nb_line "
+            exec {fd}< <(res=$(worker $line); echo $res) || exit 1
+            arr_task+=("$!:$fd:$nb_line")
             nb_line=$(($nb_line+1))
+            handler || exit 1
         done < "$from/$file"
-        
-        while [[ ${#arr_task} -gt 0 ]]
-        do
-            for task in $arr_task
-            do
-                pid=${task%:*}
-                
-                if ! kill -0 $pid 2>/dev/null
-                then
-                    data=${task#*:}
-                    fd=${data%:*}
-                    num=${data#*:}
-                    arr_res[$num]="$(cat <&$fd)" # Retrieving the task's output
-                    arr_task=${arr_task/$task /} # Removing the task from the list
-                fi
-            done
-        done
+
 
         j=0
         nb_res=${#arr_res[@]}
