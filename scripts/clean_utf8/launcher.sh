@@ -34,7 +34,6 @@ make_arr "$script_folder/src/lst_clean_sort.txt"; clean+=( "${MAKE_ARR_RET[@]}" 
 make_arr "$script_folder/src/lst_dirty_sort.txt"; dirty+=( "${MAKE_ARR_RET[@]}" )
 max_comp=${#clean[@]}
 arr_task=()
-arr_res=()
 echo "Les mentions {rep} seront à remplacer manuellements."
 
 if [ $ext_file ]
@@ -46,20 +45,24 @@ then
         nb_line=0
         while IFS= read -r line || [ -n "$line" ]
         do
-            exec {fd}< <(res=$(worker $line); echo $res) || exit 1
-            arr_task+=("$!:$fd:$nb_line")
+            exec {fd}< <(echo $(worker "$line"))
+            arr_task+="$fd "
             nb_line=$(($nb_line+1))
-            handler || exit 1
+
+            if [[ $(($nb_line % 999)) -eq 0 ]]
+            then
+                wait
+                for task in $arr_task
+                do
+                    printf %s\\n "$(cat <&$task)" >> "$to/$file"
+                done
+                for fd in $(ls /proc/$$/fd/)
+                do
+                    [ $fd -gt 2 ] && exec {fd}<&-
+                done
+                arr_task=()
+            fi
         done < "$from/$file"
-
-
-        j=0
-        nb_res=${#arr_res[@]}
-        while [[ $j -lt $nb_res ]]
-        do
-            printf %s\\n ${arr_res[$j]} >> "$to/$file"
-            j=$(($j+1))
-        done
     done
 else
     echo "No ext provided"

@@ -22,29 +22,5 @@ function worker {
 			echo -e "$nb_line	$file\n$ori\n$swap" >> "$logs/double_utf8_to_change.log"
         fi
     fi
-    echo "$swap"
-}
-
-function handler {
-	echo "$nb_line"
-	if [[ $(($nb_line % 3)) -eq 0 ]]
-	then
-		echo "BH"
-		while [[ ${#arr_task} -gt 0 ]]
-		do
-			for task in $arr_task
-			do
-				echo $task
-				pid=${task%:*}
-				if ! kill -0 $pid 2>/dev/null
-				then
-					data=${task#*:}
-					fd=${data%:*}
-					num=${data#*:}
-					arr_res[$num]="$(cat <&$fd)" # Retrieving the task's output
-					arr_task="${arr_task[@]/$task,/}" # Removing the task from the list
-				fi
-			done
-		done
-	fi
+    printf %s\\n "$swap"
 }
