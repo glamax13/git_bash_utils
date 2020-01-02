@@ -2,7 +2,7 @@
 
 # 1. Create ProgressBar function
 # 1.1 Input is currentState($1) and totalState($2)
-function ProgressBar {
+function progress_bar {
 	_pg_current_val=$1
 	_pg_max_val=$2
 	_pg_file=$3

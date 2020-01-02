@@ -1,51 +1,16 @@
 #!/bin/bash
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 ext_file=""
+from=""
+to=""
+max_comp=0
+logs="/dev/null"
 
 source "$(realpath -s $script_folder/../../global_conf.sh)"
+source "$(realpath -s $script_folder/worker.sh)"
+source "$progress_bar"
 source "$find_foi"
 source "$arr_maker"
-
-clean=(); dirty=(); list=( "desi" "code" "extra" );
-
-###Declaring functions
-function process {
-    ori=$1
-    swap=$1
-    
-    if [[ $swap =~ "&" ]]
-    then
-        selector="&amp;"
-        replacer="&"
-        swap=${swap//$selector/$replacer}
-
-        i=0
-        while [[ $i -lt ${#clean[@]} ]]
-        do
-            selector=${dirty[$i]}
-            replacer=${clean[$i]}
-            swap=${swap//$selector/$replacer}
-            i=$(($i+1))
-        done
-
-        if [ "$ori" != "$swap" ]
-        then
-            if [[ $swap =~ "{apos}" ]]
-            then
-                echo "$num_line          $file" >> ~/conv/log/html_to_changes.log
-                echo "$ori" >> $logs/html_to_changes.log
-                echo "$swap" >> $logs/html_to_changes.log
-            fi
-            echo "$num_line          $file" >> $logs/html_changes.log
-            echo "$ori" >> $logs/html_changes.log
-            echo "$swap" >> $logs/html_changes.log
-        else
-            echo "$ori" >> $logs/html_detect.log
-        fi
-    fi
-    printf %s\\n "$swap" >> $to/$file
-}
-
 
 #Parameters
 OPTIND=1
@@ -60,16 +25,32 @@ do
         *) echo "Option not handled!";;
     esac
 done
+
 ###Setup
+#Function
+function output {
+    wait
+    for task in "${arr_task[@]}"
+    do
+        printf %s\\n "$(cat <&$task)" >> "$to/$file"
+    done
+    for fd in $(ls /proc/$$/fd/)
+    do
+        [ $fd -gt 2 ] && exec {fd}<&-
+    done
+    arr_task=()
+}
+
 #Comparisson arrays
 for rep_type in ${list[@]}
 do
     make_arr "$script_folder/src/$rep_type-clean.regist"; clean+=( "${clean[@]}" "${MAKE_ARR_RET[@]}" )
     make_arr "$script_folder/src/$rep_type-dirty.regist"; dirty+=( "${dirty[@]}" "${MAKE_ARR_RET[@]}" )
 done
-#echo "Comparisson array: ${#clean[@]} clean values and ${#dirty[@]} dirty ones."
+arr_task=()
+arr_line=()
 
-###Execution
+###Work
 if [ $ext_file ]
 then
     echo "Processing $ext_file files..."
@@ -79,11 +60,32 @@ then
         nb_line=$(wc -l < "$from/$file")
         echo "File : $file, lines : $nb_line"
         num_line=0
-        while IFS= read -r line || [ -n "$line" ]
-        do
-            process "$line"
-            num_line=$(($num_line+1))
-        done < "$from/$file"
+        if [ $nb_line -gt 999 ]
+        then
+            while IFS= read -r line || [ -n "$line" ]
+            do
+                arr_line+=("$line")
+                if [ ${#arr_line[@]} -eq 9999 ]
+                then
+                    num_line=$(($num_line+9999))
+                    exec {fd}< <(echo "$(worker "$arr_line")")
+                    arr_task+=("$fd")
+                    arr_line=()
+                    progress_bar $num_line $nb_line $file
+
+                    if [ ${#arr_task[@]} -gt 13 ]
+                    then
+                        output
+                    fi
+                fi
+            done < "$from/$file"
+            output
+        else
+            while IFS= read -r line || [ -n "$line" ]
+            do
+                worker "$line" >> "$to/$file"
+            done < "$from/$file"
+        fi
     done
 else
     echo "No ext provided"

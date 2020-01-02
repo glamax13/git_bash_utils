@@ -1,7 +1,6 @@
 #!/bin/bash
 function worker {
     i=0
-    arr_output=()
     while [ $i -lt ${#arr_line[@]} ]
     do
         line=${arr_line[$i]}

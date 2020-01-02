@@ -1,5 +1,4 @@
 #!/bin/bash
-
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 ext_file=""
 from=""
@@ -12,8 +11,6 @@ source "$(realpath -s $script_folder/worker.sh)"
 source "$progress_bar"
 source "$find_foi"
 source "$arr_maker"
-
-clean=(); dirty=();
 
 #Parameters
 OPTIND=1
@@ -28,6 +25,7 @@ do
         *) echo "Option not handled!";;
     esac
 done
+
 ###Setup
 #Function
 function output {
@@ -55,21 +53,24 @@ echo "Les mentions {rep} seront à remplacer manuellements."
 if [ $ext_file ]
 then
     echo "Processing $ext_file files..."
-    find_foi -e "$ext_file" -w "$from" -t "f"
+    find_foi -t "f" -w "$from" -e "$ext_file"
     for file in ${ARR_FOI[@]}
     do
-        nb_line="$(wc -l $file)"
-        nb_line=${nb_line/$file/}
+        nb_line=$(wc -l < "$file")
+        echo "File : $file, lines : $nb_line"
+        num_line=0
         if [ $nb_line -gt 999 ]
         then
             while IFS= read -r line || [ -n "$line" ]
             do
                 arr_line+=("$line")
-                if [ $((${#arr_line[@]} % 999)) -eq 0 ]
+                if [ ${#arr_line[@]} -eq 999 ]
                 then
+                    num_line=$(($num_line+999))
                     exec {fd}< <(echo "$(worker "$arr_line")")
                     arr_task+=("$fd")
                     arr_line=()
+                    progress_bar $num_line $nb_line $file
 
                     if [ ${#arr_task[@]} -gt 13 ]
                     then
