@@ -1,4 +1,5 @@
 #!/bin/bash
+replacer_timer="$(date "+%s")"
 #####	Configuration
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 action=""
@@ -112,3 +113,4 @@ then
 else
 	echo "No action provided"
 fi
+echo "Executed $action replacement in $(($(date "+%s")-$replacer_timer)) seconds."

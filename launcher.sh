@@ -1,4 +1,5 @@
 #!/bin/bash
+main_timer="$(date "+%s")"
 ###Loading settings
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 script_folder="$(realpath -s $script_folder)"
@@ -122,3 +123,4 @@ if [ $from ]
 then
     cd "$from"
 fi
+echo "Total execution time: $(($(date "+%s")-$main_timer)) seconds."
