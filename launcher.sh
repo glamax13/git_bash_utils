@@ -36,19 +36,16 @@ done
 ###Full steps to convert everything to utf8
 function full_clean {
     echo "=> Clean utf8 (first run)..."
-    change "$clean_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+    change "$replacer" "-a" "utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
     echo "=> Conv utf8..."
-    change "$conv_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+    change "$conv_utf8" "" "" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
     echo "=> Clean utf8 (second run)..."
-    change "$clean_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+    change "$replacer" "-a" "utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
-    echo "=> Conv html (first run)..."
-    change "$conv_html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
-    
-    echo "=> Conv html (second run)..."
-    change "$conv_html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+    echo "=> Conv html..."
+    change "$replacer" "-a" "html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
     make_build "$path_to_conv" "$path_been_conv"
     files_build "*" "$path_to_conv" "$path_been_conv"
@@ -56,13 +53,17 @@ function full_clean {
 
 function change {
     #script extension from to
-    change_script=$1
-    change_ext=$3
-    change_from=$5
-    change_to=$7
-    change_log=$9
+    change_script="$1"
+    change_action_param="$2"
+    change_action="$3"
+    change_ext="$5"
+    change_from="$7"
+    change_to="$9"
+    change_log="${11}"
+    echo "bh: $change_log"
+
     make_build "$path_to_conv" "$path_been_conv"
-    source $change_script "-e" "$change_ext" "-f" "$change_from" "-t" "$change_to" "-l" "$change_log"
+    source $change_script "$change_action_param" "$change_action" "-e" "$change_ext" "-f" "$change_from" "-t" "$change_to" "-l" "$change_log"
     apply_build "$change_to" "$change_from"
 }
 
@@ -90,7 +91,7 @@ then
         clean_utf8) 
             for extension in ${lst_ext[@]}
             do
-                source "$clean_utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+                source "$replacer" "-a" "utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
             done
         ;;
         conv_utf8)
@@ -102,7 +103,7 @@ then
         conv_html)
             for extension in ${lst_ext[@]}
             do
-                source "$conv_html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
+                source "$replacer" "-a" "html" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
             done
         ;;
         full)

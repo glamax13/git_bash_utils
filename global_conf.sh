@@ -21,7 +21,8 @@ validation="$path_deps/validation.sh"
 select_ext="$path_deps/select_ext.sh"
 
 #Scripts
-clean_utf8="$path_scripts/clean_utf8/launcher.sh"
 conv_utf8="$path_scripts/conv_utf8/launcher.sh"
+clean_utf8="$path_scripts/clean_utf8/launcher.sh"
 conv_html="$path_scripts/conv_html/launcher.sh"
+replacer="$path_scripts/replacer/launcher.sh"
 parser="$path_scripts/parser/launcher.sh"

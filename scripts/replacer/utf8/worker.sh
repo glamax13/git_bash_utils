@@ -21,10 +21,10 @@ function worker {
         swap="${swap//$selector/$replacer}"
         if [ "$ori" != "$swap" ]
         then
-            echo -e "$nb_line	$file\n$ori\n$swap" >> "$logs/double_utf8_changes.log"
+            echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$logs/double_utf8_changes.log"
             if [[ "$swap" =~ "{rep}" ]]
             then
-                echo -e "$nb_line	$file\n$ori\n$swap" >> "$logs/double_utf8_to_change.log"
+                echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$logs/double_utf8_to_change.log"
             fi
         fi
         echo "$swap"
