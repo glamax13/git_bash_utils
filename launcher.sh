@@ -1,26 +1,22 @@
 #!/bin/bash
 main_timer="$(date "+%s")"
-###Loading settings
+#####   Configuration
 script_folder="$(dirname ${BASH_SOURCE[0]})"
-script_folder="$(realpath -s $script_folder)"
 help="$script_folder/help.txt"
+action=""
+origin="$(pwd)"
+workspace="$(dirname "$origin")/conv_workspace"
+destination="$workspace/output"
+workbench="$workspace/workbench"
+lst_ext=()
+lst_files=()
+
 source "$script_folder/global_conf.sh"
 source "$conv_build"
 source "$find_foi"
 source "$select_ext"
 
-###Env variables
-lst_ext=()
-lst_files=()
-from=""
-where=""
-
-###User's settings choice.
-if [ $# = 0 ]
-then
-    cat $help;
-    exit
-fi
+#####   Parameters
 while getopts a:e:w:h option
 do
     case ${option}
@@ -28,14 +24,15 @@ do
         a) action=${OPTARG};;
         e) lst_ext=( "${OPTARG}" );;
         w) from="$(pwd)"; where=${OPTARG}; cd "$where";;
-        h) cat $help;;
+        h) cat $help; exit;;
         *) echo "Option not handled!"; cat $help; exit;;
     esac
 done
 
-#####Function's delarations
-###Full steps to convert everything to utf8
-function full_clean {
+#####   Setup
+#       Function
+
+function full_clean {   #   Full steps to convert everything to utf8
     echo "=> Clean utf8 (first run)..."
     change "$replacer" "-a" "utf8" "-e" "$extension" "-f" "$path_to_conv" "-t" "$path_been_conv" "-l" "$path_to_logs"
     
@@ -61,7 +58,6 @@ function change {
     change_from="$7"
     change_to="$9"
     change_log="${11}"
-    echo "bh: $change_log"
 
     make_build "$path_to_conv" "$path_been_conv"
     source $change_script "$change_action_param" "$change_action" "-e" "$change_ext" "-f" "$change_from" "-t" "$change_to" "-l" "$change_log"

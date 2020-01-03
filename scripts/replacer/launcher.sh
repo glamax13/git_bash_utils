@@ -7,6 +7,7 @@ ext_file=""
 from=""
 to=""
 logs="/dev/null"
+verbose=""
 nb_chunk=999
 nb_thread=13
 
@@ -17,7 +18,7 @@ source "$arr_maker"
 
 #####	Parameters
 OPTIND=1
-while getopts a:e:f:t:l: option
+while getopts a:e:f:t:l:v option
 do
     case ${option}
     in
@@ -26,6 +27,7 @@ do
         f) from=${OPTARG};;
         t) to=${OPTARG};;
         l) logs=${OPTARG};;
+		v) verbose="-v";;
         *) echo "Option not handled!";;
     esac
 done

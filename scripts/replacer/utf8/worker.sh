@@ -1,5 +1,12 @@
 #!/bin/bash
 function worker {
+	verbose=""
+	if [ "$1" = "-v" ]
+	then
+		verbose="true"
+		shift
+	fi
+    
     i=0
     while [ $i -lt ${#arr_line[@]} ]
     do

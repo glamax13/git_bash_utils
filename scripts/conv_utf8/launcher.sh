@@ -60,6 +60,8 @@ do
             encod="$enc_default"
         fi
         iconv -f "$encod" -t "$enc_to" "$from/$file" > "$to/$file"
+    else
+        cp "$from/$file" "$to/$file"
     fi
 done
 

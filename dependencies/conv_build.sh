@@ -1,40 +1,39 @@
+#Copy folder and subfolder from origin to destination
 function make_build {
-    _mb_from="$1"
-    _mb_to="$2"
-    _mb_folder=""
+    local origin="$1"
+    local destination="$2"
 
-    rm -rf "$_mb_to"
-    mkdir "$_mb_to"
+    rm -rf "$destination"
+    mkdir "$destination"
 
-    find_foi -e "*" -w "$_mb_from" -t "d"
-    for _mb_folder in ${ARR_FOI[@]}
+    find_foi -e "*" -w "$origin" -t "d"
+    for build_folder in ${ARR_FOI[@]}
     do
-        mkdir "$_mb_to/$_mb_folder"
+        mkdir "$destination/$build_folder"
     done
 }
 
+#Copy files from origin to destination in there proper folder
 function files_build {
-    _fb_find_ext="$1"
-    _fb_from="$2"
-    _fb_to="$3"
-    _fb_sel_file=""
+    local find_ext="$1"
+    local origin="$2"
+    local destination="$3"
 
-    find_foi -e "$_fb_find_ext" -w "$_fb_from" -t "f"
-    for _fb_sel_file in ${ARR_FOI[@]}
+    find_foi -e "$find_ext" -w "$origin" -t "f"
+    for build_file in ${ARR_FOI[@]}
     do
-        cp "$_fb_from/$_fb_sel_file" "$_fb_to/$_fb_sel_file"
+        cp "$origin/$build_file" "$destination/$build_file"
     done
-    echo "Found ${#ARR_FOI[@]} original files."
 }
 
+#Overwrite file from origin to destination
 function apply_build {
-    _ab_from=$1
-    _ab_to=$2
-    _ab_file=""
-
+    local origin=$1
+    local destination=$2
+    
     find_foi -e "*" -w "$_ab_from" -t "f"
-    for _ab_file in ${ARR_FOI[@]}
+    for build_file in ${ARR_FOI[@]}
     do
-        mv "$_ab_from/$_ab_file" "$_ab_to/$_ab_file"
+        mv "$origin/$build_file" "$destination/$build_file"
     done
 }

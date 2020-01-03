@@ -2,6 +2,13 @@
 # Notice: values from main process are duplicated for the subprocess. Changes in main won't affect sub after seperation.
 # File descriptors are also duplicated from main by default HOWEVER this behaviour has been bypassed in main by {fd}<subprocess.
 function worker {
+	verbose=""
+	if [ "$1" = "-v" ]
+	then
+		verbose="true"
+		shift
+	fi
+
     i=0
     while [ $i -lt ${#arr_line[@]} ]				#Looping over lines that have been attributed to this process
     do
@@ -32,8 +39,11 @@ function worker {
 					echo "$(echo "$(($num_line+$i))          $file"; echo "$ori"; echo "$swap")" >> ~/conv/log/html_to_changes.log
 				fi
 				echo "$(echo "$(($num_line+$i))          $file"; echo "$ori"; echo "$swap")"	>> $logs/html_changes.log
-			else									#Logging the fact that an "&" has been found and might be a character that failed to be replaced
-				echo "$(($num_line+$i))	$ori"	>> $logs/html_detect.log
+			else
+				if [ $verbose ]
+				then								#Logging the fact that an "&" has been found and might be a character that failed to be replaced
+					echo "$(($num_line+$i))	$ori"	>> $logs/html_detect.log
+				fi
 			fi
 		fi
 		echo "$swap"								#Outputing processed lines
