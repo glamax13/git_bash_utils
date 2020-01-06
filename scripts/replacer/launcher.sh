@@ -6,7 +6,7 @@ action=""
 ext_file=""
 from=""
 to=""
-logs="/dev/null"
+log="/dev/null"
 verbose=""
 nb_chunk=999
 nb_thread=13
@@ -26,7 +26,7 @@ do
         e) ext_file=${OPTARG};;
         f) from=${OPTARG};;
         t) to=${OPTARG};;
-        l) logs=${OPTARG};;
+        l) log=${OPTARG};;
 		v) verbose="-v";;
         *) echo "Option not handled!";;
     esac

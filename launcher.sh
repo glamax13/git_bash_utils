@@ -6,9 +6,6 @@ help="$script_folder/help.txt"
 action=""
 target="$PWD"
 workspace="$(dirname "$target")/gbu_${PWD##*/}"
-workbench="$workspace/workbench"
-output="$workspace/output"
-log="$workspace/log"
 lst_ext=()
 lst_files=()
 
@@ -34,6 +31,11 @@ do
 done
 
 #####   Setup
+#       Variable
+workbench="$workspace/workbench"
+output="$workspace/output"
+log="$workspace/log"
+
 #       Function
 
 function full_clean {   #   Full steps to convert everything to utf8
@@ -101,7 +103,6 @@ do
             rm -rf "$output/$extension"
         fi
     fi
-    
     arr_ws_folder=( "$workspace" "$output" "$log" "$log/$extension" )
     for ws_folder in ${arr_ws_folder[@]}
     do

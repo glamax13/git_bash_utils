@@ -6,7 +6,7 @@ function worker {
 		verbose="true"
 		shift
 	fi
-    
+
     i=0
     while [ $i -lt ${#arr_line[@]} ]
     do
@@ -14,9 +14,9 @@ function worker {
         i=$(($i+1))
         ori=$line
         swap=$line
-    
+        
         j=0
-        while [[ $j -lt $max_comp ]]
+        while [ $j -lt ${#clean[@]} ]
         do
             selector="${dirty[$j]}"
             replacer="${clean[$j]}"
@@ -28,10 +28,10 @@ function worker {
         swap="${swap//$selector/$replacer}"
         if [ "$ori" != "$swap" ]
         then
-            echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$logs/double_utf8_changes.log"
+            echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$log/double_utf8_changes.log"
             if [[ "$swap" =~ "{rep}" ]]
             then
-                echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$logs/double_utf8_to_change.log"
+                echo "$(echo "$nb_line	$file"; echo "$ori"; echo "$swap")" >> "$log/double_utf8_to_change.log"
             fi
         fi
         echo "$swap"
