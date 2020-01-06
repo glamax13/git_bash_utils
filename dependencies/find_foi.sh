@@ -1,28 +1,27 @@
 function find_foi {
-	_ff_ori="$(pwd)"
-	_ff_where="."
-	_ff_ext="*"
-	_ff_type="f"
+	local ori="$PWD"
+	local where="."
+	local ext="*"
+	local type="f"
 	ARR_FOI=()
 	
 	OPTIND=1
-	while getopts t:w:e: option
+	while getopts w:t:e: option
 	do
 		case ${option}
 		in
-			e) _ff_ext=${OPTARG};;
-			w) _ff_where=${OPTARG};;
-			t) _ff_type=${OPTARG};;
+			w) where=${OPTARG};;
+			t) type=${OPTARG};;
+			e) ext=${OPTARG};;
 			*) echo "option not handled"
 		esac
 	done
 	
-	_ff_ext="*$_ff_ext"
+	ext="*$ext"
 
-
-	cd "$_ff_where"
+	cd "$where"
 	find \. \
-		-name "${_ff_ext}" \
+		-name "${ext}" \
 		\! \( \
 			-path '*/.git/*' \
 			-o -path '*/.idea/*' \
@@ -34,7 +33,7 @@ function find_foi {
 			-o -name '.gitkeep' \
 			-o -name 'FILE_FOI' \
 			-o -name '\.' \) \
-		-type "${_ff_type}" \
+		-type "${type}" \
 				-print0 >FILE_FOI
 
 	while IFS=  read -r -d $'\0'; do
@@ -42,5 +41,5 @@ function find_foi {
 	done <FILE_FOI
 	rm -f FILE_FOI
 
-	cd "$_ff_ori"
+	cd "$ori"
 }

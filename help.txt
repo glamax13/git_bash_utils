@@ -4,6 +4,9 @@
 
 usage: launcher -a action [-w] [-e extension] [-h help]
 
+-h for help:
+	display this message
+
 -a for actions:
 	- full: apply all the steps to get a clean utf8 project
 	- conv_html: convert html characters to utf8 ones
@@ -11,13 +14,9 @@ usage: launcher -a action [-w] [-e extension] [-h help]
 	- conv_utf8: convert files to utf8 based on the iconv commande results
 	- parse: parse a folder's files by type to find a piece of text
 
--w for where:
-	where should the software get the files from:
-		default: The current folder
-		specified: git_bash_utils/to_conv
+-w for workspace:
+	where should the software setup it's workspace
+		default: next to the project to be converted.
 
 -e for extension:
-	what type of file should be processed
-
--h for help:
-	display this message
+	what type of file should be processed. Multiple extensions can be specified.

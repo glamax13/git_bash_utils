@@ -8,13 +8,9 @@ path_root="$(realpath -s $path_root)"
 path_deps="$path_root/dependencies"
 path_scripts="$path_root/scripts"
 
-path_to_logs="$path_root/logs"
-path_to_conv="$path_root/to_conv"
-path_been_conv="$path_root/been_conv"
-
 #Dependencies
 progress_bar="$path_deps/progress_bar.sh"
-conv_build="$path_deps/conv_build.sh"
+src_mgr="$path_deps/src_mgr.sh"
 find_foi="$path_deps/find_foi.sh"
 arr_maker="$path_deps/arr_maker.sh"
 validation="$path_deps/validation.sh"
