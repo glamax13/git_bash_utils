@@ -4,8 +4,9 @@ main_timer="$(date "+%s")"
 script_folder="$(dirname ${BASH_SOURCE[0]})"
 help="$script_folder/help.txt"
 action=""
-target="$PWD"
-workspace="$(dirname "$target")/gbu_${PWD##*/}"
+project="$PWD"
+thread=1
+workspace="$(dirname "$project")/gbu_${PWD##*/}"
 lst_ext=()
 lst_files=()
 
@@ -16,7 +17,7 @@ source "$select_ext"
 source "$validation"
 
 #####   Parameters
-while getopts ha:w:e:t:l: option
+while getopts ha:w:e:p:t:l:g option
 do
     case ${option}
     in
@@ -24,8 +25,10 @@ do
         a) action=${OPTARG};;
         w) workspace=${OPTARG};;
         e) lst_ext=( "${OPTARG}" );;
-        t) target=${OPTARG}; cd "$target";;
+        p) project=${OPTARG}; cd "$project";;
+		t) thread=${OPTARG};;
         l) log=${OPTARG};;
+		g) source "$script_folder/generate.sh"; exit;;
         *) echo "Option not handled!"; cat $help; exit;;
     esac
 done
@@ -39,24 +42,27 @@ log="$workspace/log"
 #       Function
 
 function full_clean {   #   Full steps to convert everything to utf8
+	source "$replacer"
+	source "$conv_utf8"
+
     echo "  => Clean utf8 (first run)..."
     dup_folders "$workbench/$extension" "$output/$extension"
-        source $replacer "-a" "utf8"    "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension"
+        replace "-a" "clean_utf8"	"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" "-t" "$thread" "-l" "$log/$extension"
     merge_changes "$output/$extension" "$workbench/$extension"
     
     echo "  => Conv utf8..."
     dup_folders "$workbench/$extension" "$output/$extension"
-        source $conv_utf8               "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension"
+        conv					"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" 				"-l" "$log/$extension"
     merge_changes "$output/$extension" "$workbench/$extension"
     
     echo "  => Clean utf8 (second run)..."
     dup_folders "$workbench/$extension" "$output/$extension"
-        source $replacer "-a" "utf8"    "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension"
+        replace "-a" "clean_utf8"	"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" "-t" "$thread" "-l" "$log/$extension"
     merge_changes "$output/$extension" "$workbench/$extension"
     
     echo "  => Conv html..."
     dup_folders "$workbench/$extension" "$output/$extension"
-        source $replacer "-a" "html"    "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension"
+        replace "-a" "conv_html" 	"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" "-t" "$thread" "-l" "$log/$extension"
     merge_changes "$output/$extension" "$workbench/$extension"
     dup_folders "$workbench/$extension" "$output/$extension"
     dup_files "$workbench/$extension" "$output/$extension" "*"
@@ -80,7 +86,7 @@ fi
 for extension in ${lst_ext[@]}
 do
     ###Setup
-    if [ -d "$workbench" ]
+    if [ -d "$workbench/$extension" ]
     then
         validation -m "A previous action seems to have been aborded. Do you want to clean it"
         if [ ! $VALID ]
@@ -88,8 +94,9 @@ do
             echo "Action $action cancelled. Quitting."
             exit
         else
-            rm -rf "$workbench"
-            rm -rf "$output"
+            rm -rf "$workbench/$extension"
+            rm -rf "$output/$extension"
+            rm -rf "$log/$extension"
         fi
     elif [ -d "$output/$extension" ]
     then
@@ -100,10 +107,10 @@ do
             exit
         else
             rm -rf "$output/$extension"
-            rm -rf "$output/$extension"
+            rm -rf "$log/$extension"
         fi
     fi
-    arr_ws_folder=( "$workspace" "$output" "$log" "$log/$extension" )
+    arr_ws_folder=( "$workspace" "$workbench" "$workbench/$extension" "$output" "$output/$extension" "$log" "$log/$extension" )
     for ws_folder in ${arr_ws_folder[@]}
     do
         if [ ! -d "$ws_folder" ]
@@ -112,23 +119,20 @@ do
         fi
     done
 
-    mkdir "$workbench"
-    mkdir "$workbench/$extension"
-    mkdir "$output/$extension"
-
-    dup_folders "$target" "$workbench/$extension"
-    dup_files "$target" "$workbench/$extension" "$extension"
-    echo "${ARR_FOI[@]}" >> "$workspace/$(date "+%d_%m_%Y-%H_%M").log" 
+    dup_folders "$project" "$workbench/$extension"
+    dup_files "$project" "$workbench/$extension" "$extension"
+    echo "$(date "+%d_%m_%Y-%H_%M") : ${ARR_FOI[@]}" >> "$workspace/$action-executions.log"
     dup_folders "$workbench/$extension" "$output/$extension"
 
     case $action
     in
-        clean_utf8) source "$replacer" "-a" "utf8"  "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension";;
-        conv_html)  source "$replacer" "-a" "html"  "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension";;
-        conv_utf8)  source "$conv_utf8"             "-e" "$extension" "-f" "$workbench/$extension" "-t" "$output/$extension" "-l" "$log/$extension";;
+        clean_utf8) source "$replacer"; replace "-a" "clean_utf8"	"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" "-t" "$thread" "-l" "$log/$extension";;
+        conv_html)  source "$replacer"; replace "-a" "conv_html" 	"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" "-t" "$thread" "-l" "$log/$extension";;
+        conv_utf8)  source "$conv_utf8"; conv						"-e" "$extension" "-o" "$workbench/$extension" "-d" "$output/$extension" 				"-l" "$log/$extension";;
         full)       full_clean;;
         *) echo "Error! I don't know this action: $action"; exit;;
     esac
+	rm -rf "$workbench/$extension"
 done
 rm -rf "$workbench"
 echo "Total execution time: $(($(date "+%s")-$main_timer)) seconds."
