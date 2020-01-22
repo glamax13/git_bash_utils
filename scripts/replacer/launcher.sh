@@ -68,7 +68,7 @@ function replace {
 			for file in ${ARR_FOI[@]}
 			do
 				progress_bar "$nb_file_processed" "$nb_files" "$file"
-				worker -s "$sed_script" -o "$origin" -d "$destination" -l "$log" "$quiet" &
+				worker -s "$sed_script" -o "$origin" -d "$destination" -l "$log" "$quiet"
 				nb_process=$(($nb_process+1))
 				if [ "$nb_process" = "$nb_thread" ]
 				then

@@ -21,12 +21,8 @@ function worker {
 			*) echo "Option not handled!";;
 		esac
 	done
-	if [ "$action" = "html" ]
-	then
-		sed -i.bak 's/&amp;/&/g' "$origin/$file"
-	fi
 
-	cat "$file" | sed -f "$sed_script" > "$destination/$file"
+	cat "$file" | sed 's/&amp;/&/g' | sed 's/&amp;/&/g' | sed 's/&amp;/&/g' | sed -f "$sed_script" > "$destination/$file"
 	grep -n "{rep}" "$destination/$file" >> "$log/$file.to-be-replaced.log"
 
 	if [ ! $quiet ]
