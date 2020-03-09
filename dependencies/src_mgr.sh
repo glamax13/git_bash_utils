@@ -9,9 +9,8 @@ function dup_folders {
     find_foi -w "$origin" -t "d" -e "*"
     for build_folder in ${ARR_FOI[@]}
     do
-        mkdir "$destination/$build_folder" &
+        mkdir "$destination/$build_folder"
     done
-    wait
 }
 
 #Copy files from origin to destination in there proper folder
@@ -33,7 +32,7 @@ function merge_changes {
     local origin=$1
     local destination=$2
     
-    find_foi -w "$_ab_from" -t "f" -e "*"
+    find_foi -w "$origin" -t "f" -e "*"
     for build_file in ${ARR_FOI[@]}
     do
         mv "$origin/$build_file" "$destination/$build_file" &

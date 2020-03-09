@@ -1,9 +1,9 @@
 function select_ext {
     source "$validation"
-    _se_from="."
-    _se_cut_ext=""
-    _se_lst_all=()
-    _se_lst_unique=()
+    local origin="."
+    local cut_ext=""
+    local lst_all=()
+    local lst_unique=()
     LST_EXTENSION=()
 
     #Parameters
@@ -12,23 +12,23 @@ function select_ext {
     do
         case ${option}
         in
-            f) _se_from=${OPTARG};;
+            f) origin=${OPTARG};;
             *) echo "Option not handled!";;
         esac
     done
 
-    find_foi -e "*" -w "$_se_from" -t "f"
+    find_foi -e "*" -w "$origin" -t "f"
     for ext_file in ${ARR_FOI[@]}
     do
-        _se_cut_ext="${ext_file##*.}"
-        if [[ "$_se_cut_ext" =~ "/" ]]
+        cut_ext="${ext_file##*.}"
+        if [[ "$cut_ext" =~ "/" ]]
         then
             :
         else
-            _se_lst_all+=( "$_se_cut_ext" )
+            lst_all+=( "$_se_cut_ext" )
         fi
     done
-    _se_lst_unique=($(echo "${_se_lst_all[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
+    lst_unique=($(echo "${_se_lst_all[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
     
     for ext in ${_se_lst_unique[@]}
     do
